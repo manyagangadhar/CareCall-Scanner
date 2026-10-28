@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#176b62">
+  <title>CareCall Scanner</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Browser-based OCR library -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="logo">✚</div>
+  <div>
+    <h1>CareCall Scanner</h1>
+    <p>Your medicine and care companion</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="notice">
+    <strong>Safety notice:</strong>
+    Always verify medicine names, dosages and timings against the original
+    prescription or with a pharmacist before saving. OCR can make mistakes.
+  </div>
+
+  <!-- PRESCRIPTION SCANNER -->
+  <section class="card">
+    <h2>📷 Prescription Scanner</h2>
+    <p>Upload a prescription image to extract readable text.</p>
+
+    <label for="prescriptionImage">Choose prescription image</label>
+    <input
+      type="file"
+      id="prescriptionImage"
+      accept="image/*"
+      capture="environment"
+    >
+
+    <img id="imagePreview" alt="Prescription preview" hidden>
+
+    <button id="scanBtn" type="button">Scan Prescription</button>
+
+    <p id="scanStatus" role="status">Choose an image to begin.</p>
+
+    <label for="ocrText">Extracted prescription text</label>
+    <textarea
+      id="ocrText"
+      rows="7"
+      placeholder="Extracted text will appear here..."
+    ></textarea>
+
+    <button id="autofillBtn" class="secondary" type="button">
+      Try to Fill Medicine Details
+    </button>
+  </section>
+
+  <!-- MEDICINE REMINDERS -->
+  <section class="card">
+    <h2>💊 Medicine Reminders</h2>
+
+    <form id="medicineForm">
+      <label for="medicineName">Medicine name *</label>
+      <input id="medicineName" required placeholder="Medicine name">
+
+      <label for="dosage">Dose / strength</label>
+      <input id="dosage" placeholder="As written on prescription">
+
+      <label for="medicineTime">Reminder time *</label>
+      <input id="medicineTime" type="time" required>
+
+      <label for="instructions">Instructions</label>
+      <input id="instructions" placeholder="Doctor's instructions">
+
+      <button type="submit">Save Medicine</button>
+    </form>
+
+    <div id="medicineList"></div>
+  </section>
+
+  <!-- CARETAKER CONTACT -->
+  <section class="card">
+    <h2>📞 Caretaker Contact</h2>
+
+    <label for="caretakerName">Caretaker name</label>
+    <input id="caretakerName" placeholder="Enter caretaker name">
+
+    <label for="caretakerPhone">Phone number with country code</label>
+    <input id="caretakerPhone" type="tel" placeholder="+91 9876543210">
+
+    <button id="saveCaretakerBtn" type="button">Save Caretaker</button>
+
+    <div class="button-row">
+      <a id="callLink" class="button disabled" href="#">Call Caretaker</a>
+      <a id="smsLink" class="button secondary disabled" href="#">Message Caretaker</a>
+    </div>
+
+    <label for="messageText">Message preview</label>
+    <textarea id="messageText" rows="3">CareCall Scanner: Please check whether I need help with my scheduled medicine.</textarea>
+
+    <p class="small">
+      Calling opens the phone dialer. Messaging opens the messaging app;
+      you must review and send the message yourself.
+    </p>
+  </section>
+
+  <!-- CHECKUP -->
+  <section class="card">
+    <h2>🩺 Doctor Checkup</h2>
+
+    <label for="checkupDate">Appointment date</label>
+    <input id="checkupDate" type="date">
+
+    <label for="checkupNotes">Appointment notes</label>
+    <input id="checkupNotes" placeholder="Doctor or clinic details">
+
+    <button id="saveCheckupBtn" type="button">Save Checkup</button>
+
+    <p id="checkupOutput"></p>
+  </section>
+
+  <!-- VOICE -->
+  <section class="card">
+    <h2>🔊 Voice Reminder Test</h2>
+    <button id="voiceTestBtn" type="button">Test Voice</button>
+    <p id="appStatus" class="small"></p>
+  </section>
+
+  <footer>
+    <p>CareCall Scanner — Healthcare Technology Prototype</p>
+    <p class="small">
+      Medicine reminders are checked while the app is running.
+      Do not rely on this prototype for critical medication schedules.
+    </p>
+  </footer>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
